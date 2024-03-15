@@ -1,0 +1,44 @@
+.GridContainer {
+  display: grid;
+  grid-template-columns: 300px 1fr; /* Adjust the sidebar width */
+  grid-template-rows: auto 1fr; /* Header and main content rows */
+  grid-template-areas:
+    "nav header"
+    "nav main";
+  height: 100vh;
+  font-family: 'Arial', sans-serif; /* Assuming Arial, but you can change this */
+}
+
+.NavContainer {
+  grid-area: nav;
+  background-color: #2c3e50; 
+  padding: 20px;
+  color: white;
+}
+
+.MainContainer {
+  grid-area: main;
+  padding: 20px;
+  overflow-y: auto; 
+}
+
+.HeaderContainer {
+  grid-area: header;
+  background-color: #f0f2f5; 
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.HeaderItem {
+  cursor: pointer;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.LogoutButton {
+  background-color: #e74c3c; 
+  color: white;
+  padding: 10px 
+}
