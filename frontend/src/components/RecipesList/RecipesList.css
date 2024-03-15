@@ -1,0 +1,33 @@
+.RecipesListContainer {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.RecipesListContainer h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.RecipesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.RecipeItem {
+  color: #333; 
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.RecipeItem:hover {
+  background-color: #efefef;
+}
