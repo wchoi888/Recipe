@@ -1,12 +1,12 @@
 .GridContainer {
   display: grid;
-  grid-template-columns: 300px 1fr; /* Adjust the sidebar width */
-  grid-template-rows: auto 1fr; /* Header and main content rows */
+  grid-template-columns: 300px 1fr; 
+  grid-template-rows: auto 1fr; 
   grid-template-areas:
     "nav header"
     "nav main";
   height: 100vh;
-  font-family: 'Arial', sans-serif; /* Assuming Arial, but you can change this */
+  font-family: 'Arial', sans-serif; 
 }
 
 .NavContainer {

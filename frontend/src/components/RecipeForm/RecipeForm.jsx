@@ -7,7 +7,6 @@ const RecipeForm = ({ addRecipe, deleteRecipe, editRecipe, selectedRecipe, clear
         instructions: ''
     });
 
-    // If a selected recipe is passed in, this effect will update the form fields to show the selected recipe's data for editing.
     useEffect(() => {
         if (selectedRecipe) {
             setInputFields({
@@ -16,7 +15,7 @@ const RecipeForm = ({ addRecipe, deleteRecipe, editRecipe, selectedRecipe, clear
                 instructions: selectedRecipe.instructions
             });
         } else {
-            // Clear the form if there is no selected recipe (when user clicks "Clear Form")
+           
             setInputFields({ title: '', ingredients: '', instructions: '' });
         }
     }, [selectedRecipe]);
@@ -28,10 +27,8 @@ const RecipeForm = ({ addRecipe, deleteRecipe, editRecipe, selectedRecipe, clear
 
     const handleAddOrUpdateRecipe = () => {
         if (selectedRecipe) {
-            // Call the editRecipe function if a recipe is being edited
             editRecipe(selectedRecipe.id, inputFields.title, inputFields.ingredients, inputFields.instructions);
         } else {
-            // Call the addRecipe function if a new recipe is being added
             addRecipe(inputFields.title, inputFields.ingredients, inputFields.instructions);
         }
         clearForm();
@@ -39,7 +36,6 @@ const RecipeForm = ({ addRecipe, deleteRecipe, editRecipe, selectedRecipe, clear
 
     const handleDeleteRecipe = () => {
         if (selectedRecipe) {
-            // Call the deleteRecipe function if a recipe is selected
             deleteRecipe(selectedRecipe.id);
             clearForm();
         } else {
@@ -47,7 +43,6 @@ const RecipeForm = ({ addRecipe, deleteRecipe, editRecipe, selectedRecipe, clear
         }
     };
 
-    // Reset form fields and clear selected recipe
     const clearForm = () => {
         setInputFields({ title: '', ingredients: '', instructions: '' });
         clearSelection(); 

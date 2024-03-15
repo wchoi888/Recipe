@@ -9,7 +9,7 @@ const Dashboard = () => {
       const savedRecipes = localStorage.getItem('recipes');
       return savedRecipes ? JSON.parse(savedRecipes) : [];
     });
-    const [selectedRecipe, setSelectedRecipe] = useState(null); // State to track the selected recipe for editing
+    const [selectedRecipe, setSelectedRecipe] = useState(null); 
 
     useEffect(() => {
         // save recipes to local storage when they change
@@ -28,22 +28,22 @@ const Dashboard = () => {
 
     const deleteRecipe = (recipeId) => {
         setRecipes(recipes.filter(recipe => recipe.id !== recipeId));
-        setSelectedRecipe(null); // Clear the selection when a recipe is deleted
+        setSelectedRecipe(null); 
     };
 
     const editRecipe = (recipeId, newTitle, newIngredients, newInstructions) => {
         setRecipes(recipes.map(recipe => 
             recipe.id === recipeId ? {...recipe, title: newTitle, ingredients: newIngredients, instructions: newInstructions} : recipe
         ));
-        setSelectedRecipe(null); // Clear the selection after editing is done
+        setSelectedRecipe(null); 
     };
 
     const selectRecipeForEdit = (recipe) => {
-        setSelectedRecipe(recipe); // Set the selected recipe for editing
+        setSelectedRecipe(recipe); 
     };
 
     const clearSelection = () => {
-        setSelectedRecipe(null); // Clear the selected recipe
+        setSelectedRecipe(null); 
     };
 
     return (
@@ -63,7 +63,7 @@ const Dashboard = () => {
                 </div>
                 <RecipesList 
                   recipes={recipes} 
-                  selectRecipeForEdit={selectRecipeForEdit} // Pass this function to the list component
+                  selectRecipeForEdit={selectRecipeForEdit} 
                 />
             </div>
         </div>
