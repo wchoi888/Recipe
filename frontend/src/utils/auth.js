@@ -1,4 +1,4 @@
-// auth.js
+//most of this should be done since it's from class but need to update secretkey and expiration
 const secret = 'secretkey'; 
 const expiration = '8h';
 
