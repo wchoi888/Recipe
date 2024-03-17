@@ -1,3 +1,7 @@
+//this is where users can see all the recipes they created
+//they can select recipes from this list to view, update, or delete 
+//the recipe they select will be display in the same recipe form where they create recipes
+
 import React from 'react';
 import './RecipesList.css'; 
 

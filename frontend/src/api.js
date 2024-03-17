@@ -1,3 +1,5 @@
+//API BASE URL might need to to be updated 
+//once wing is done with the backend, we need to set this up to communicate with the server
 const API_BASE_URL = "http://localhost:5000"; 
 
 export const registerUser = async (username, email, password) => {

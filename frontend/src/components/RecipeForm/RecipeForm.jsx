@@ -1,3 +1,7 @@
+//this is where users fill out the input form for the recipe they want to create
+//they can create a title for their recipe and include the ingredients and instructions
+//once they click "add recipe" the recipe will be included in the "my recipes" list
+
 import React, { useState, useEffect } from 'react';
 
 const RecipeForm = ({ addRecipe, deleteRecipe, editRecipe, selectedRecipe, clearSelection }) => {

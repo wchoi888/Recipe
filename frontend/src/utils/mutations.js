@@ -1,3 +1,4 @@
+//this is just a placeholder until wing has tested his resolvers and ppastes the operations here
 import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`
