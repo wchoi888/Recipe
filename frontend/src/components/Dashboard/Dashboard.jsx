@@ -3,6 +3,7 @@ import RecipesForm from '../RecipeForm';
 import RecipesList from '../RecipesList';
 import ExternalRecipes from '../ExternalRecipes'; 
 import './Dashboard.css';
+import { useNavigate } from 'react-router-dom'; //need to import use navigate to nav to search page
 
 const Dashboard = () => {
     const [recipes, setRecipes] = useState(() => {
@@ -12,6 +13,8 @@ const Dashboard = () => {
     });
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [searchQuery, setSearchQuery] = useState(''); // State for storing the search query
+
+    const navigate = useNavigate(); //hook for navigating
 
     useEffect(() => {
         // Save recipes to local storage whenever they change
@@ -52,6 +55,10 @@ const Dashboard = () => {
         setSearchQuery(event.target.value);
     };
 
+    const handleSearch = () => {
+        navigate(`/search?query=${searchQuery}`); // navigate to search results page based on query
+    };
+
     return (
         <div className="GridContainer">
             <div className="NavContainer">
@@ -71,6 +78,7 @@ const Dashboard = () => {
                         value={searchQuery}
                         onChange={handleSearchChange}
                     />
+                    <button onClick={handleSearch}>Search</button>
                     <div className="HeaderItem">Logout</div>
                 </div>
                 <RecipesList 

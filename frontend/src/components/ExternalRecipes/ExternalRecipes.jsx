@@ -3,19 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const ExternalRecipes = ({ searchQuery }) => {//define component to handle search queries
+const ExternalRecipes = () => {//define component to handle search queries
     const [recipes, setRecipes] = useState([]);//create state to store recipes...
     const [selectedRecipe, setSelectedRecipe] = useState(null);
-
     const location = useLocation();
 
-    const fetchRecipes = () => { //functin to fetch recipes
-        if(searchQuery) {//search query is require to make fetch
-            fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchQuery}`)//query based on keyword
+    const fetchRecipes = (query) => { //functin to fetch recipes
+        // if(searchQuery) {//search query is require to make fetch
+            fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)//query based on keyword
                 .then(response => response.json())
                 .then(data => setRecipes(data.meals))
                 .catch(err => console.error(err));
-        }
+        
     };
 
     const handleRecipeSelect = (recipe) => {
@@ -38,7 +37,7 @@ const ExternalRecipes = ({ searchQuery }) => {//define component to handle searc
         if (query) {
             fetchRecipes(query);
         }
-    }, [location]);
+    }, [location.search]);
 
     return (
         <div>
