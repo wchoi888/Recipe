@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RecipesForm from '../RecipeForm';
-import RecipesList from '../RecipesList';
-import ExternalRecipes from '../ExternalRecipes'; 
+import RecipesList from '../RecipesList/RecipesList';
+import ExternalRecipes from '../ExternalRecipes/ExternalRecipes';
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom'; //need to import use navigate to nav to search page
 
