@@ -1,10 +1,11 @@
 :root {
-  --primary-color: #007bff;           /* Blue */
-  --secondary-color: #de8950;         /* Orange */
-  --primary-hover-color: #cce608;     /* Light Yellow */
-  --secondary-hover-color: #1e7e34;   /* Dark Green */
-  --background-color: #f0f2f5;        /* Light Gray */
+  --primary-color: #FF6F61;           /* Coral Red */
+  --secondary-color: #FFD166;         /* Pastel Yellow */
+  --primary-hover-color: #E5989B;     /* Lighter Coral Red */
+  --secondary-hover-color: #FFB169;   /* Lighter Pastel Yellow */
+  --background-color: #f6ebeb;       /* Light Gray */
 }
+
 
 .GridContainer {
   display: grid;
@@ -16,7 +17,6 @@
     "main";
   min-height: 100vh;
   font-family: 'Arial', sans-serif; 
-  background-color: var(--background-color); 
 }
 
 .NavContainer {
