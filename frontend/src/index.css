@@ -37,13 +37,25 @@ h1 {
   line-height: 1.1;
 }
 
+/* CSS to style the logo */
+#logo {
+  width: 120px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  position: fixed; /* Position the logo fixed on the page */
+  top: 20px; /* Adjust the distance from the top of the page */
+  left: 50%; /* Move the logo to the middle horizontally */
+  transform: translateX(-50%); /* Center the logo horizontally */
+  z-index: 999; /* Ensure the logo appears above other content */
+}
+
+
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.8em 1.6em; /* Increased padding for better button spacing */
   margin: 0.5em; /* Added margin for spacing between buttons */
   font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
   background-color: #f6f0f0;
   cursor: pointer;

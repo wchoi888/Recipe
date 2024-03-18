@@ -1,58 +1,83 @@
+/* Define colors and spacing using CSS variables */
+:root {
+  --primary-color: #FF6F61;           /* Coral Red */
+  --secondary-color: #FFD166;         /* Pastel Yellow */
+  --primary-hover-color: #E5989B;     /* Lighter Coral Red */
+  --secondary-hover-color: #FFB169;   /* Lighter Pastel Yellow */
+  --background-color: #FFFFFF;        /* White */
+}
+
+/* Base styles for LoginWrapper and LoginContainer */
 .LoginWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+
+.LoginContainer {
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  width: 100%; /* Use percentage for width to make it responsive */
+  max-width: 600px; /* Set maximum width for larger screens */
+  text-align: center;
+}
+
+/* Title and input styles */
+.LoginTitle {
+  margin-bottom: 2rem;
+}
+
+.Input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Button styles */
+.LoginButton, .SignUpButton {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.LoginButton {
+  background-color: var(--primary-color);
+}
+
+.LoginButton:hover {
+  background-color: var(--primary-hover-color);
+}
+
+.SignUpButton {
+  margin-top: 10px;
+  background-color: var(--secondary-color);
+}
+
+.SignUpButton:hover {
+  background-color: var(--secondary-hover-color);
+}
+
+
+/* Media query for mobile devices (phones) */
+@media (max-width: 576px) {
+  /* Adjust LoginWrapper and LoginContainer styles for smaller screens */
+  .LoginWrapper {
+    padding: 20px; /* Add padding for spacing on smaller screens */
   }
   
   .LoginContainer {
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    text-align: center;
+    width: 100%; /* Full width on smaller screens */
+    max-width: none; /* Remove maximum width for full width */
   }
-  
-  .LoginTitle {
-    margin-bottom: 2rem;
-  }
-  
-  .Input {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-  
-  .LoginButton, .SignUpButton {
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .LoginButton {
-    background-color: #007bff;
-  }
-  
-  .LoginButton:hover {
-    background-color: #0056b3;
-  }
-  
-  .SignUpButton {
-    margin-top: 10px;
-    background-color: #28a745;
-  }
-  
-  .SignUpButton:hover {
-    background-color: #1e7e34;
-  }
-  
+}
