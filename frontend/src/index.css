@@ -3,7 +3,7 @@
   --secondary-color: #FFD166;         /* Pastel Yellow */
   --primary-hover-color: #E5989B;     /* Lighter Coral Red */
   --secondary-hover-color: #FFB169;   /* Lighter Pastel Yellow */
-  --background-color: #f6ebeb;        /* Light Gray */
+  --background-color: #F0F0F0;        /* Light Gray */
   
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -68,6 +68,7 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
 
 @media (prefers-color-scheme: light) {
   :root {
