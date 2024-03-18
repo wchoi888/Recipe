@@ -1,60 +1,36 @@
-//most of this should be done since it's from class but need to update secretkey and expiration
-const secret = 'secretkey'; 
-const expiration = '8h';
+// use this to decode a token and get the user's information out of it
+import decode from 'jwt-decode';
 
-export const setToken = (token) => {
-  // Store the token in localStorage or a similar persistent store
-  localStorage.setItem('jwtToken', token);
-};
-
-export const getToken = () => {
-  // Retrieve the token from localStorage
-  return localStorage.getItem('jwtToken');
-};
-
-export const decodeToken = () => {
-  // Decode the token to get user data
-  const token = getToken();
-  if (!token) {
-    return null;
+// create a new class to instantiate for a user
+class AuthService {
+  // get user data from JSON web token by decoding it
+  getUser() {
+    return decode(this.getToken());
   }
 
-  try {
-    // Decode token and return user data
-    const decoded = jwt.decode(token, secret);
-    return decoded;
-  } catch (e) {
-    console.error('Error decoding token:', e);
-    return null;
-  }
-};
-
-export const isLoggedIn = () => {
-  // Check if the user is logged in
-  const token = getToken();
-  if (!token) {
-    return false;
+  // return `true` or `false` if token exists (does not verify if it's expired yet)
+  loggedIn() {
+    const token = this.getToken();
+    return token ? true : false;
   }
 
-  try {
-    const decoded = jwt.decode(token, secret);
-    const now = Date.now().valueOf() / 1000;
-    // Check if the token has expired
-    if (typeof decoded.exp !== 'undefined' && decoded.exp < now) {
-      console.warn('Access token has expired, logging out');
-      logout();
-      return false;
-    }
-    return true;
-  } catch (e) {
-    console.error('Error checking token validity:', e);
-    return false;
+  getToken() {
+    // Retrieves the user token from localStorage
+    return localStorage.getItem('id_token');
   }
-};
 
-export const logout = () => {
-  // Clear the token from localStorage
-  localStorage.removeItem('jwtToken');
-};
+  login(idToken) {
+    // Saves user token to localStorage and reloads the application for logged in status to take effect
+    localStorage.setItem('id_token', idToken);
+    window.location.assign('/dashboard');
+  }
 
-import jwt from 'jwt-decode';
+  logout() {
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem('id_token');
+    // this will reload the page and reset the state of the application
+    window.location.reload();
+  }
+}
+
+export default new AuthService();

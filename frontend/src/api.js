@@ -1,15 +1,30 @@
 //API BASE URL might need to to be updated 
 //once wing is done with the backend, we need to set this up to communicate with the server
-const API_BASE_URL = "http://localhost:5000"; 
+const API_BASE_URL = "http://localhost:3001"; 
 
 export const registerUser = async (username, email, password) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/register`, {
+    const response = await fetch(`${API_BASE_URL}/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({ query:`mutation AddUser($username: String!, $email: String!, $password: String!) {
+        addUser(username: $username, email: $email, password: $password) {
+          token
+          user {
+            _id
+            username
+            email
+          }
+        }
+      }
+    `,
+    variables: {
+      username,
+      email,
+      password,
+    },}),
     });
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -23,7 +38,7 @@ export const registerUser = async (username, email, password) => {
 
 export const loginUser = async (email, password) => {
   try {
-    const response = await fetch('http://localhost:5000/graphql', {
+    const response = await fetch(`${API_BASE_URL}/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
