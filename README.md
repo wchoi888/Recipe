@@ -1,6 +1,6 @@
 # Recipes For Me
 
-![RecipesForMe](/public/images/RecipesForMe.png)
+![RecipesForMe](https://github.com/wchoi888/Recipe/assets/142269375/eb2f9724-6744-4b76-9478-6e0c39f0056d)
 
 ## Description
 
