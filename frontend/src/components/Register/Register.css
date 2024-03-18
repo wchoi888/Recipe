@@ -1,61 +1,56 @@
+:root {
+  --primary-color: #FF6F61;           /* Coral Red */
+  --secondary-color: #FFD166;         /* Pastel Yellow */
+  --primary-hover-color: #E5989B;     /* Lighter Coral Red */
+  --secondary-hover-color: #FFB169;   /* Lighter Pastel Yellow */
+  --background-color: #F0F0F0;        /* Light Gray */
+}
+
 .RegisterWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f2f5;
-  }
-  
-  .RegisterContainer {
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    text-align: center;
-  }
-  
-  .RegisterTitle {
-    margin-bottom: 2rem;
-  }
-  
-  .Input {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-  
-  .RegisterButton {
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #28a745;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .RegisterButton:hover {
-    background-color: #1e7e34;
-  }
-  
-  .LoginButton {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .LoginButton:hover {
-    background-color: #0056b3;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+
+.RegisterContainer {
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px white (245, 239, 239, 0.1);
+  width: 90%;  /* Adjusted width for mobile devices */
+  max-width: 400px;  /* Limiting maximum width for larger screens */
+  text-align: center;
+}
+
+.RegisterTitle {
+  margin-bottom: 1.5rem;  /* Reduced margin for better spacing */
+  font-size: 1.5rem;  /* Increased font size for better readability */
+}
+
+.Input {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.RegisterButton, .LoginButton {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1.5rem;  /* Increased margin for better spacing */
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary-color);  /* Using primary color */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;  /* Smooth transition for hover effect */
+}
+
+.RegisterButton:hover, .LoginButton:hover {
+  background-color: var(--primary-hover-color);  /* Hover color */
+}
