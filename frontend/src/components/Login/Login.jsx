@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../api'; 
 import './Login.css';
-
+import Auth from '../../utils/auth';
 const Login = () => {
     const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
@@ -12,8 +12,10 @@ const Login = () => {
       e.preventDefault();
       try {
         const response = await loginUser(email, password); 
-        localStorage.setItem('token', response.token); 
-        navigate('/dashboard'); 
+ 
+        Auth.login(response.token);
+        // localStorage.setItem('token', response.token); 
+        // navigate('/dashboard'); 
       } catch (error) {
         console.error('Login failed:', error);
       }

@@ -2,7 +2,7 @@
 const User = require("../models/User");
 const Recipe = require("../models/Recipe");
 // import sign token function from auth
-const { signToken } = require("../utils/auth");
+const { signToken } = require("../utils/auth_old");
 
 module.exports = {
   // get a single user by either their id or their username

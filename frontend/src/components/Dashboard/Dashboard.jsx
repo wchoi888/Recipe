@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import RecipesForm from '../RecipeForm';
 import RecipesList from '../RecipesList/RecipesList';
 import ExternalRecipes from '../ExternalRecipes/ExternalRecipes';
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom'; //need to import use navigate to nav to search page
+import Auth from '../../utils/auth'
 
 const Dashboard = () => {
     const [recipes, setRecipes] = useState(() => {
@@ -15,11 +16,16 @@ const Dashboard = () => {
     const [searchQuery, setSearchQuery] = useState(''); // State for storing the search query
 
     const navigate = useNavigate(); //hook for navigating
-
+    
     useEffect(() => {
+        if (!Auth.loggedIn()) {
+            // If not logged in, navigate to the login page
+            navigate('/login');
+        }
+    
         // Save recipes to local storage whenever they change
         localStorage.setItem('recipes', JSON.stringify(recipes));
-    }, [recipes]);
+    }, [recipes, navigate]);
 
     const addRecipe = (title, ingredients, instructions) => {
         const newRecipe = {
@@ -29,7 +35,7 @@ const Dashboard = () => {
             instructions,
         };
         setRecipes([...recipes, newRecipe]);
-    };
+    };``
 
     const deleteRecipe = (recipeId) => {
         setRecipes(recipes.filter(recipe => recipe.id !== recipeId));
@@ -58,9 +64,14 @@ const Dashboard = () => {
     const handleSearch = () => {
         navigate(`/search?query=${searchQuery}`); // navigate to search results page based on query
     };
+    const logout = (event) => {
+        event.preventDefault();
+        Auth.logout();
+      };
 
     return (
         <div className="GridContainer">
+            {Auth.loggedIn() ? (<>
             <div className="NavContainer">
                 <RecipesForm 
                   addRecipe={addRecipe} 
@@ -79,14 +90,19 @@ const Dashboard = () => {
                         onChange={handleSearchChange}
                     />
                     <button onClick={handleSearch}>Search</button>
-                    <div className="HeaderItem">Logout</div>
+                    <button  onClick={logout}>Logout</button>
                 </div>
                 <RecipesList 
                   recipes={recipes} 
                   selectRecipeForEdit={selectRecipeForEdit} 
                 />
                 <ExternalRecipes searchQuery={searchQuery} />
-            </div>
+            </div></>
+            ) : (
+                <>
+             
+            </>
+          )}
         </div>
     );
 };

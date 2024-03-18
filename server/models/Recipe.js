@@ -1,14 +1,13 @@
 const { Schema, model } = require("mongoose");
-const IngredientsSchema = require("./Ingredients");
-// This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedBooks` array in User.js
+const IngredientsSchema = require("./Ingredient");
+
 const recipeSchema = new Schema({
-  name: [
+  recipeName:
     {
       type: String,
       required: true,
     },
-  ],
-  description: {
+  recipeDesc: {
     type: String,
     required: true,
   },
@@ -23,14 +22,9 @@ const recipeSchema = new Schema({
     type: String,
   },
   category: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "Category",
     required: false,
-  },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
   },
 });
 const Recipe = model("Recipe", recipeSchema);
