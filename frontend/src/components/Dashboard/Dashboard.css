@@ -16,14 +16,16 @@
     "main";
   min-height: 100vh;
   font-family: 'Arial', sans-serif; 
-  background-color: var(--background-color); 
+  margin-top: 70px;
+  position: relative;
 }
 
 .NavContainer {
   grid-area: nav;
   background-color: var(--primary-color); /* Updated to primary color */
-  padding: 20px;
+  padding: 50px;
   color: white;
+  margin-top: 70px;
 }
 
 .MainContainer {
@@ -89,6 +91,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two columns */
   gap: 20px; /* Add some spacing between columns */
+  margin-top: 50px;
 }
 
 /* Form inputs for the left side */
