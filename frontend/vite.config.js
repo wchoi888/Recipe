@@ -4,6 +4,18 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: { //make it mobile friendly
+        port: 5173,
+        open: true,
+        host: true,
+        proxy: {
+          '/graphql': {
+            target: 'http://localhost:3001', 
+            secure: false,
+            changeOrigin: true,
+          }
+         }
+        }
 })
 
 
@@ -48,7 +60,7 @@ export default defineConfig({
 //       ],
 //     },
 //   })],
-//   server: { //make it mobile friendly
+ //  server: { //make it mobile friendly
 //     port: 3000,
 //     open: true,
 //     host: true,

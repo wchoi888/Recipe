@@ -1,32 +1,26 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../api';
+import { loginUser } from '../../api'; 
 import './Login.css';
 import Auth from '../../utils/auth';
-
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
       e.preventDefault();
-
-        // mock login for development putposes
-      if (process.env.NODE_ENV === "development") {
-        console.log("Mock login for development");
-        Auth.login("MockToken");
-      } else { //bascially remove lines 15-19 when ready
-        // actual login logic below:
-        try {
-          const response = await loginUser(email, password); 
-          Auth.login(response.token);
-        } catch (error) {
-          console.error('Login failed:', error);
-        }
+      try {
+        const response = await loginUser(email, password); 
+ 
+        Auth.login(response.token);
+        // localStorage.setItem('token', response.token); 
+        // navigate('/dashboard'); 
+      } catch (error) {
+        console.error('Login failed:', error);
       }
     };
-
+  
     const navigateToRegister = () => {
       navigate('/register');
     };
@@ -38,8 +32,8 @@ const Login = () => {
                 <form onSubmit={handleLogin}>
                     <input
                         className="Input"
-                        type="email"
-                        placeholder="Email"
+                        type="email" 
+                        placeholder="Email" 
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />

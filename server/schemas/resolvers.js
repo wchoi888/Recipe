@@ -52,6 +52,10 @@ const resolvers = {
 
       return { token, user };
     },
+    addCategory: async (parent, {categoryName, categoryDesc}) =>{
+        const category = await Category.create({categoryName, categoryDesc})
+        return category
+    },
     addRecipe: async (
       parent,
       { recipeName, recipeDesc, instructions, ingredients, categoryId, image },
