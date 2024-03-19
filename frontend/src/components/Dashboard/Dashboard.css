@@ -6,24 +6,24 @@
   --background-color: #f6ebeb;       /* Light Gray */
 }
 
-
 .GridContainer {
   display: grid;
-  grid-template-columns: 1fr; 
+  grid-template-columns: 1fr 1fr; /* Two columns */
   grid-template-rows: auto auto 1fr;
   grid-template-areas:
-    "header"
-    "nav"
-    "main";
+    "header header"
+    "nav main"
+    "nav main";
   min-height: 100vh;
   font-family: 'Arial', sans-serif; 
 }
 
 .NavContainer {
   grid-area: nav;
-  background-color: var(--primary-color); /* Updated to primary color */
+  background-color: var(--primary-color);
   padding: 20px;
   color: white;
+  margin-top: 130px;
 }
 
 .MainContainer {
@@ -34,68 +34,12 @@
 
 .HeaderContainer {
   grid-area: header;
-  background-color: var(--secondary-color); /* Updated to secondary color */
+  background-color: var(--secondary-color);
   padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center; 
-}
-
-.HeaderItem {
-  cursor: pointer;
-  color: #022424;
-  font-weight: bold;
-}
-
-.LogoutButton, .HeaderItem {
-  background-color: var(--secondary-color); 
-  color: white;
-  padding: 10px 20px;
-  border: 2px solid var(--secondary-color);
-  border-radius: 5px;
-  margin-right: 10px;
-  box-shadow: none; /* Removed shadow */
-}
-
-.LogoutButton:hover, .HeaderItem:hover {
-  background-color: var(--secondary-hover-color);
-  border-color: var(--secondary-hover-color);
-}
-
-/* Mobile responsiveness */
-@media screen and (max-width: 768px) {
-  .GridContainer {
-    grid-template-columns: 1fr; /* Adjusted for mobile devices */
-    grid-template-areas:
-      "header"
-      "nav"
-      "main";
-  }
-}
-
-.Input {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  background-color: white; /* Changed background color to white */
-  box-shadow: none; /* Removed shadow */
-}
-/* Grid container for the form */
-.FormContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Two columns */
-  gap: 20px; /* Add some spacing between columns */
-}
-
-/* Form inputs for the left side */
-.LeftInputs {
-  display: flex;
-  flex-direction: column;
-  grid-column: 1 / 2; /* Span the first column */
+  margin-top: 110px;
 }
 
 /* Adjustments for form labels and inputs */
@@ -110,17 +54,14 @@
   padding: 0.5em; /* Adjust padding */
 }
 
+/* Form inputs for the left side */
+.LeftInputs {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Form inputs for the right side */
 .RightInputs {
   display: flex;
   flex-direction: column;
-  grid-column: 2 / 3; /* Span the second column */
-}
-
-/* Additional adjustments for better readability */
-#servings,
-#prep-time,
-#cook-time,
-#total-time {
-  margin-bottom: 0.8em; /* Reduce spacing between form fields */
 }
