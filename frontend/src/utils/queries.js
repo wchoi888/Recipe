@@ -46,3 +46,13 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+export const GET_CATEGORIES = gql`
+  query categories {
+    categories {
+      _id
+      categoryName
+      categoryDesc
+    }
+  }
+`;

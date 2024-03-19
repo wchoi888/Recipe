@@ -1,29 +1,19 @@
-:root {
-  --primary-color: #FF6F61;           /* Coral Red */
-  --secondary-color: #FFD166;         /* Pastel Yellow */
-  --primary-hover-color: #E5989B;     /* Lighter Coral Red */
-  --secondary-hover-color: #FFB169;   /* Lighter Pastel Yellow */
-  --background-color: #f6ebeb;       /* Light Gray */
-}
-
 .GridContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two columns */
-  grid-template-rows: auto auto 1fr;
+  grid-template-columns: 300px 1fr; 
+  grid-template-rows: auto 1fr; 
   grid-template-areas:
-    "header header"
-    "nav main"
+    "nav header"
     "nav main";
-  min-height: 100vh;
+  height: 100vh;
   font-family: 'Arial', sans-serif; 
 }
 
 .NavContainer {
   grid-area: nav;
-  background-color: var(--primary-color);
+  background-color: #2c3e50; 
   padding: 20px;
   color: white;
-  margin-top: 130px;
 }
 
 .MainContainer {
@@ -34,34 +24,21 @@
 
 .HeaderContainer {
   grid-area: header;
-  background-color: var(--secondary-color);
+  background-color: #f0f2f5; 
   padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center; 
-  margin-top: 110px;
 }
 
-/* Adjustments for form labels and inputs */
-.FormLabel {
-  margin-bottom: 0.5em; /* Add some spacing between labels */
+.HeaderItem {
+  cursor: pointer;
+  color: #007bff;
+  font-weight: bold;
 }
 
-#title,
-#ingredients,
-#instructions {
-  width: calc(100% - 20px); /* Adjust width of inputs to account for spacing */
-  padding: 0.5em; /* Adjust padding */
-}
-
-/* Form inputs for the left side */
-.LeftInputs {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Form inputs for the right side */
-.RightInputs {
-  display: flex;
-  flex-direction: column;
+.LogoutButton {
+  background-color: #e74c3c; 
+  color: white;
+  padding: 10px 
 }
