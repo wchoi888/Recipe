@@ -1,5 +1,12 @@
+:root {
+  --background-color: #f9f9f9; /* Define background color variable */
+  --primary-color: #333; /* Define primary text color variable */
+  --secondary-color: #ddd; /* Define secondary text color variable */
+  --secondary-hover-color: #efefef; /* Define secondary hover background color variable */
+}
+
 .RecipesListContainer {
-  background-color: #f9f9f9;
+  background-color: var(--background-color); /* Use CSS variable for background color */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -7,7 +14,7 @@
 }
 
 .RecipesListContainer h2 {
-  color: #333;
+  color: var(--primary-color); /* Use CSS variable for text color */
   font-size: 1.5rem;
   margin-bottom: 15px;
 }
@@ -19,9 +26,9 @@
 }
 
 .RecipeItem {
-  color: #333; 
+  color: var(--primary-color); /* Use CSS variable for text color */
   padding: 10px 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--secondary-color); /* Use CSS variable for border color */
   border-radius: 4px;
   margin-bottom: 8px;
   cursor: pointer;
@@ -29,5 +36,5 @@
 }
 
 .RecipeItem:hover {
-  background-color: #efefef;
+  background-color: var(--secondary-hover-color); /* Use CSS variable for hover background color */
 }
