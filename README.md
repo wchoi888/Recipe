@@ -1,5 +1,7 @@
 # Recipes For Me
 
+![RecipesForMe](https://github.com/wchoi888/Recipe/assets/142269375/99caa05b-eed2-438c-9fc1-8c2976dc3d34)
+
 ## Description
 
 Recipes For Me is a full-stack single-page application built using the MERN (MongoDB, Express.js, React, Node.js) stack. It serves as a platform for users to create, save, update, and filter their favorite recipes. Users can create an account, browse their collection of recipes, add new recipes, and filter through saved recipes.
