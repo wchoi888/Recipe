@@ -1,42 +1,69 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Define colors and spacing using CSS variables */
+:root {
+  --primary-color: #FF6F61;           /* Coral Red */
+  --secondary-color: #FFD166;         /* Pastel Yellow */
+  --primary-hover-color: #E5989B;     /* Lighter Coral Red */
+  --secondary-hover-color: #FFB169;   /* Lighter Pastel Yellow */
+  --background-color: #FFFFFF;        /* White */
+}
+
+/* Base styles for ResultWrapper and ResultContainer */
+.ResultWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.ResultContainer {
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  width: 100%; /* Use percentage for width to make it responsive */
+  max-width: 800px; /* Set maximum width for larger screens */
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Title and input styles */
+.ResultTitle {
+  margin-bottom: 2rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.ResultList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ResultItem {
+  margin-bottom: 1rem;
+}
+
+/* Button styles */
+.BackButton {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  color: white;
+  cursor: pointer;
+}
+
+.BackButton:hover {
+  background-color: var(--secondary-hover-color);
+}
+
+/* Media query for mobile devices (phones) */
+@media (max-width: 576px) {
+  /* Adjust ResultWrapper and ResultContainer styles for smaller screens */
+  .ResultWrapper {
+    padding: 20px; /* Add padding for spacing on smaller screens */
   }
-  to {
-    transform: rotate(360deg);
+  
+  .ResultContainer {
+    width: 100%; /* Full width on smaller screens */
+    max-width: none; /* Remove maximum width for full width */
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
