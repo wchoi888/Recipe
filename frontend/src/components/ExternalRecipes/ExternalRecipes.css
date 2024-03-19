@@ -1,1 +1,62 @@
-/* put css styling for results page here */
+/* Define colors and spacing using CSS variables */
+:root {
+    --primary-color: #FF6F61;           /* Coral Red */
+    --secondary-color: #FFD166;         /* Pastel Yellow */
+    --primary-hover-color: #E5989B;     /* Lighter Coral Red */
+    --secondary-hover-color: #FFB169;   /* Lighter Pastel Yellow */
+    --background-color: #FFFFFF;        /* White */
+    
+  }
+  
+  /* Base styles for ResultWrapper and ResultContainer */
+  .ResultWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin-top: 150px;
+  }
+  
+  .ResultContainer {
+    padding: 20px;
+    background: var(--background-color);
+    margin-top: 150px;
+    border-radius: 10px;
+    width: 100%; /* Use percentage for width to make it responsive */
+    max-width: 800px; /* Set maximum width for larger screens */
+    text-align: center;
+  }
+  
+  /* Title and input styles */
+  .ResultTitle {
+    margin-bottom: 2rem;
+    margin-top: 150px;
+  }
+  
+  /* Button styles */
+  .SearchButton {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+  }
+  
+  .SearchButton:hover {
+    background-color: var(--primary-hover-color);
+  }
+  
+  /* Media query for mobile devices (phones) */
+  @media (max-width: 576px) {
+    /* Adjust ResultWrapper and ResultContainer styles for smaller screens */
+    .ResultWrapper {
+      padding: 20px; /* Add padding for spacing on smaller screens */
+    }
+    
+    .ResultContainer {
+      width: 100%; /* Full width on smaller screens */
+      max-width: none; /* Remove maximum width for full width */
+    }
+  }
+  
