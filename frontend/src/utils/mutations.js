@@ -8,6 +8,7 @@ export const LOGIN_USER = gql`
       user {
         _id
         username
+        email
       }
     }
   }
@@ -20,33 +21,32 @@ export const ADD_USER = gql`
       user {
         _id
         username
+        email
       }
     }
   }
 `;
 
 export const ADD_RECIPE = gql`
-  mutation addRecipe($title: String!, $ingredients: String!, $instructions: String!) {
-    createRecipe(recipeInput: {title: $title, ingredients: $ingredients, instructions: $instructions}) {
+  mutation addRecipe($title: String!, $instructions: String!, $ingredients: String!, $category: ID!) {
+    addRecipe(recipeName: $title, instructions: $instructions, ingredients: $ingredients, category: $category) {
       _id
-      title
-      ingredients
+      recipeName
       instructions
-      creator {
-        _id
-        username
-      }
+      ingredients
+      category
     }
   }
 `;
 
 export const EDIT_RECIPE = gql`
-  mutation editRecipe($recipeId: ID!, $title: String, $ingredients: String, $instructions: String) {
-    editRecipe(editRecipeInput: {recipeId: $recipeId, title: $title, ingredients: $ingredients, instructions: $instructions}) {
+  mutation editRecipe($recipeId: ID!, $title: String, $instructions: String, $ingredients: String, $category: ID) {
+    editRecipe(recipeId: $recipeId, recipeName: $title, instructions: $instructions, ingredients: $ingredients, category: $category) {
       _id
-      title
-      ingredients
+      recipeName
       instructions
+      ingredients
+      category
     }
   }
 `;

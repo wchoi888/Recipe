@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../api';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../../utils/mutations';
 import './Register.css'; 
 
 const Register = () => {
@@ -8,19 +9,20 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [addUser] = useMutation(ADD_USER);
 
   const handleRegister = async (e) => {
     e.preventDefault();
     
     try {
-      const result = await registerUser(username, email, password);
-      console.log('Registration successful:', result);
+       await addUser({variables:{username: username, email:email, password:password}});
+
       navigate('/login');
     } catch (error) {
       console.error('Registration failed:', error);
     }
   };
-
+ 
   const navigateToLogin = () => {
     navigate('/login');
   };

@@ -12,8 +12,8 @@ const typeDefs = `
     recipeName: String
     recipeDesc: String
     instructions: String
-    ingredients: [Ingredient]
-    categoryId: Category
+    ingredients: String
+    category: ID
     image: String
   }
   type Category {
@@ -21,11 +21,7 @@ const typeDefs = `
     categoryName: String
     categoryDesc: String
   }
-  type Ingredient {
-    _id: ID
-    ingredientName: String
-    quantity: String
-  }
+  
   type Auth {
     token: ID!
     user: User
@@ -33,13 +29,11 @@ const typeDefs = `
 
   type Query {
     users: [User]
-    user(userId: ID!): User
+    user(_id: ID!): User
     recipes(username: String): [Recipe]
     recipe(recipeId: ID!): Recipe
     categories: [Category]
     category(categoryId: ID!): Category
-    ingredients(recipeId: ID!): [Ingredient]
-    ingredient(ingredientName: String!): Ingredient
     me: User
   }
 
@@ -47,7 +41,9 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addCategory(categoryName: String!, categoryDesc: String): Category
-    addRecipe(name: String!, recipeDesc: String!, instructions: String!, ingredients: String!, categoryId: ID!, image: String): Recipe
+    addRecipe(recipeName: String!, instructions: String!, ingredients: String!, category: ID!): Recipe
+    editRecipe(recipeId: ID!, recipeName: String, instructions: String, ingredients: String, category: ID): Recipe
+    deleteRecipe(recipeId: ID!): Recipe
  
   }
 `;

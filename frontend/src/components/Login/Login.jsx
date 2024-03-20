@@ -1,21 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../api'; 
 import './Login.css';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 const Login = () => {
     const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [login, { error, data }] = useMutation(LOGIN_USER);
+useEffect(()=>{
+  if(Auth.loggedIn()|| data){
+    navigate('/dashboard')
+  }
+
+}, [data, navigate])
 
     const handleLogin = async (e) => {
       e.preventDefault();
       try {
-        const response = await loginUser(email, password); 
+        const { data } = await login({variables: {email: email, password: password}}); 
  
-        Auth.login(response.token);
+        Auth.login(data.login.token);
         // localStorage.setItem('token', response.token); 
-        // navigate('/dashboard'); 
+        
       } catch (error) {
         console.error('Login failed:', error);
       }
@@ -27,8 +35,14 @@ const Login = () => {
 
     return (
         <div className="LoginWrapper">
+           
             <div className="LoginContainer">
                 <h2 className="LoginTitle">Login</h2>
+                 {error && (
+              <div className="my-3 p-3 bg-danger text-white">
+                {error.message}
+              </div>
+            )}
                 <form onSubmit={handleLogin}>
                     <input
                         className="Input"

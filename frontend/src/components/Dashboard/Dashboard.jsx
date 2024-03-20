@@ -1,53 +1,34 @@
 import { useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import RecipesForm from '../RecipeForm';
 import RecipesList from '../RecipesList/RecipesList';
 import ExternalRecipes from '../ExternalRecipes/ExternalRecipes';
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom'; //need to import use navigate to nav to search page
 import Auth from '../../utils/auth'
+import {  QUERY_USER} from '../../utils/queries';
 
 const Dashboard = () => {
-    const [recipes, setRecipes] = useState(() => {
-        // Retrieve recipes from local storage
-        const savedRecipes = localStorage.getItem('recipes');
-        return savedRecipes ? JSON.parse(savedRecipes) : [];
+    const user = Auth.loggedIn() ? Auth.getUser() : null;
+    const navigate = useNavigate(); //hook for navigating
+    const { loading, error, data } = useQuery(QUERY_USER, {
+        variables: { userId: user ? user.data._id : null }
     });
+
+    const [recipes, setRecipes] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [searchQuery, setSearchQuery] = useState(''); // State for storing the search query
 
-    const navigate = useNavigate(); //hook for navigating
-    
+
     useEffect(() => {
-        if (!Auth.loggedIn()) {
-            // If not logged in, navigate to the login page
-            navigate('/login');
+       if(!Auth.loggedIn()){
+        navigate('/login')
+       }        if (!loading && !error && data) {
+            setRecipes(data.user.createdRecipes || []);
         }
-    
-        // Save recipes to local storage whenever they change
-        localStorage.setItem('recipes', JSON.stringify(recipes));
-    }, [recipes, navigate]);
 
-    const addRecipe = (title, ingredients, instructions) => {
-        const newRecipe = {
-            id: recipes.length > 0 ? Math.max(...recipes.map(r => r.id)) + 1 : 1,
-            title,
-            ingredients,
-            instructions,
-        };
-        setRecipes([...recipes, newRecipe]);
-    };``
+    }, [navigate,loading, error, data]);
 
-    const deleteRecipe = (recipeId) => {
-        setRecipes(recipes.filter(recipe => recipe.id !== recipeId));
-        setSelectedRecipe(null);
-    };
-
-    const editRecipe = (recipeId, newTitle, newIngredients, newInstructions) => {
-        setRecipes(recipes.map(recipe => 
-            recipe.id === recipeId ? {...recipe, title: newTitle, ingredients: newIngredients, instructions: newInstructions} : recipe
-        ));
-        setSelectedRecipe(null);
-    };
 
     const selectRecipeForEdit = (recipe) => {
         setSelectedRecipe(recipe);
@@ -71,12 +52,8 @@ const Dashboard = () => {
 
     return (
         <div className="GridContainer">
-            {Auth.loggedIn() ? (<>
             <div className="NavContainer">
                 <RecipesForm 
-                  addRecipe={addRecipe} 
-                  deleteRecipe={deleteRecipe} 
-                  editRecipe={editRecipe}
                   selectedRecipe={selectedRecipe}
                   clearSelection={clearSelection}
                 />
@@ -97,12 +74,7 @@ const Dashboard = () => {
                   selectRecipeForEdit={selectRecipeForEdit} 
                 />
                 <ExternalRecipes searchQuery={searchQuery} />
-            </div></>
-            ) : (
-                <>
-             
-            </>
-          )}
+            </div>
         </div>
     );
 };

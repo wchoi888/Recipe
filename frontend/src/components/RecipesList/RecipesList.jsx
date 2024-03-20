@@ -11,8 +11,8 @@ const RecipesList = ({ recipes, selectRecipeForEdit }) => {
       <h2>Your Recipes</h2>
       <ul className="RecipesList">
         {recipes.map((recipe) => (
-          <li className="RecipeItem" key={recipe.id} onClick={() => selectRecipeForEdit(recipe)}>
-            {recipe.title}
+          <li className="RecipeItem" key={recipe._id} onClick={() => selectRecipeForEdit(recipe)}>
+            {recipe.recipeName}
           </li>
         ))}
       </ul>

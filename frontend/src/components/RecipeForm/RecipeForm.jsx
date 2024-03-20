@@ -1,32 +1,37 @@
 //this is where users fill out the input form for the recipe they want to create
 //they can create a title for their recipe and include the ingredients and instructions
 //once they click "add recipe" the recipe will be included in the "my recipes" list
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_CATEGORIES } from '../../utils/queries';
 import  { useState, useEffect } from 'react';
+import { ADD_RECIPE, EDIT_RECIPE, DELETE_RECIPE } from '../../utils/mutations';
 
-const RecipeForm = ({ addRecipe, deleteRecipe, editRecipe, selectedRecipe, clearSelection }) => {
+const RecipeForm = ({  selectedRecipe, clearSelection }) => {
     const [inputFields, setInputFields] = useState({
         title: '',
         ingredients: '',
+        category: '',
         instructions: ''
     });
+    const [addRecipe] = useMutation(ADD_RECIPE)
+    const [editRecipe] = useMutation(EDIT_RECIPE)
+    const [deleteRecipe] = useMutation(DELETE_RECIPE)
+
 
     useEffect(() => {
         if (selectedRecipe) {
             setInputFields({
-                title: selectedRecipe.name,
+                title: selectedRecipe.recipeName,
                 ingredients: selectedRecipe.ingredients,
+                category: selectedRecipe.category,
                 instructions: selectedRecipe.instructions
             });
         } else {
            
-            setInputFields({ title: '', ingredients: '', instructions: '' });
+            setInputFields({ title: '', ingredients: '', category:'',instructions: '' });
         }
     }, [selectedRecipe]);
-    console.log("Hi")
-    const { loading, error, data } = useQuery(GET_CATEGORIES);
-    console.log("Hi",data)
+    const { loading, data } = useQuery(GET_CATEGORIES);
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setInputFields(prev => ({ ...prev, [name]: value }));
@@ -34,49 +39,66 @@ const RecipeForm = ({ addRecipe, deleteRecipe, editRecipe, selectedRecipe, clear
 
     const handleAddOrUpdateRecipe = () => {
         if (selectedRecipe) {
-            editRecipe(selectedRecipe.id, inputFields.name, inputFields.ingredients, inputFields.instructions);
+            editRecipe({
+                variables:{
+                    recipeId: selectedRecipe._id,
+                    title: inputFields.title,
+                    ingredients: inputFields.ingredients,
+                    category: inputFields.category,
+                    instructions: inputFields.instructions
+                }
+         });
         } else {
-            addRecipe(inputFields.name, inputFields.ingredients, inputFields.instructions);
+            addRecipe({
+               variables:{
+                title: inputFields.title,
+                ingredients: inputFields.ingredients,
+                category: inputFields.category,
+                instructions: inputFields.instructions
+               }
+        }); 
+         window.location.reload();
         }
         clearForm();
+      
     };
 
     const handleDeleteRecipe = () => {
         if (selectedRecipe) {
-            deleteRecipe(selectedRecipe.id);
+            deleteRecipe({variables: {recipeId: selectedRecipe._id}});
             clearForm();
+            window.location.reload();
         } else {
             alert("Please select a recipe to delete.");
         }
     };
 
     const clearForm = () => {
-        setInputFields({ title: '', ingredients: '', instructions: '' });
+        setInputFields({ title: '', ingredients: '', category: '', instructions: '' });
         clearSelection(); 
     };
 
     return (
         <div className="recipe-form">
-            {error && <p>Error: {error.message}</p>}
             <form>
                 <input
-                placeholder="Name"
+                placeholder="Recipe Name"
                     type="text"
-                    id="name"
-                    name="name" 
-                    value={inputFields.name}
+                    id="title"
+                    name="title" 
+                    value={inputFields.title}
                     onChange={handleInputChange}
                 />
                 <input
-                    placeholder="ingredients"
+                    placeholder="Ingredients: separate each ingredient with a comma."
                     type="text"
                     id="ingredients"
                     name="ingredients"
                     value={inputFields.ingredients}
                     onChange={handleInputChange}
                 />
-                <select id="category" name="category">
-                <option>Select Category</option>
+                <select id="category" name="category" value={inputFields.category} onChange={handleInputChange}>
+                <option value="">Select Category</option>
                 {(loading)?(<option>Loading...</option>):(data.categories.map(category => (
                     <option key={category._id} value={category._id}>
                         {category.categoryName}
@@ -87,7 +109,7 @@ const RecipeForm = ({ addRecipe, deleteRecipe, editRecipe, selectedRecipe, clear
                     placeholder="Instruction"
                     id="instructions"
                     name="instructions"
-                    value={inputFields.instruction}
+                    value={inputFields.instructions}
                     onChange={handleInputChange}
                 ></textarea>
 
