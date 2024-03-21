@@ -130,7 +130,25 @@ const resolvers = {
         return recipe;
       }
     },
+    saveExternalRecipe: async (parent, { recipeName, details, image, externalId }, context) => {
+      if (!context.user) { // user needs to be authenticated in order to save recipe from API
+        throw new AuthenticationError;
+      }
+      
+      const savedRecipe = await Recipe.create({
+        recipeName,
+        details,
+        image,
+        externalId
+        // I did not include 'category' here because it's from the external API.
+      });
+      await User.findByIdAndUpdate(context.user._id, { $addToSet: { savedRecipes: savedRecipe._id } });
+
+      return savedRecipe;// update the user's list of saved recipes
+    },
   },
+  
+
 };
 
 module.exports = resolvers;

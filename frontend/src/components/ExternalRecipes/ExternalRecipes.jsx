@@ -2,11 +2,16 @@
 //need to add a search button that 'onclik' navigates to results page..?
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { SAVE_EXTERNAL_RECIPE } from '../../utils/mutations';
+// Need to add mutation that let's users save recipes from the external API
 
 const ExternalRecipes = () => {//define component to handle search queries
     const [recipes, setRecipes] = useState([]);//create state to store recipes...
     const [mealDetails, setMealDetails] = useState({}); //storing meal details as an object
     const location = useLocation();
+
+const [saveExternalRecipe] = useMutation(SAVE_EXTERNAL_RECIPE);
+
 
     const fetchRecipes = (query) => { //functin to fetch recipes
         // if(searchQuery) {//search query is require to make fetch
@@ -32,6 +37,25 @@ const ExternalRecipes = () => {//define component to handle search queries
         fetchMealDetails(recipe.idMeal);
     };
 
+    const handleSaveRecipe = async (recipe) => {
+        try {
+            const { strMeal: recipeName, strInstructions: details, strMealThumb: image } = recipe;
+    
+            await saveExternalRecipe({
+                variables: {
+                    recipeName,
+                    details,
+                    image
+                }
+            });
+    
+            console.log("Recipe saved");
+        } catch (error) {
+            console.error("Error saving recipe:", error);
+        }
+    };
+
+
     useEffect(() => { //useEffect hook to make side effects in the component
         const params = new URLSearchParams(location.search);//get search query from url 
         const query = params.get('query');
@@ -49,6 +73,9 @@ const ExternalRecipes = () => {//define component to handle search queries
                     {mealDetails[recipe.idMeal] && ( // Check if details for this mealId exist
                         <div>
                             <p>Instructions: {mealDetails[recipe.idMeal].strInstructions}</p>
+                            <button onClick={() => handleSaveRecipe(mealDetails[recipe.idMeal])}>
+                                Save Recipe
+                            </button>
                         </div>
                     )}
                 </div>
