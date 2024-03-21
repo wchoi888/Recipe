@@ -5,10 +5,10 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('createdRecipes');
+      return User.find().populate("createdRecipes");
     },
     user: async (parent, { _id }) => {
-      return User.findOne({ _id }).populate('createdRecipes');
+      return User.findOne({ _id }).populate("createdRecipes");
     },
     recipes: async () => {
       return Recipe.find().sort({ createdAt: -1 });
@@ -23,21 +23,28 @@ const resolvers = {
       return Category.findOne({ _id: categoryId });
     },
     me: async (parent, context) => {
-      console.log(context.user)
+      console.log(context.user);
       if (context.user) {
-        const userData= await User.findOne({ _id: context.user._id }).populate("createdRecipes");
-        console.log(userData)
-        return userData
+        const userData = await User.findOne({ _id: context.user._id }).populate(
+          "createdRecipes"
+        );
+        console.log(userData);
+        return userData;
       }
-      throw  AuthenticationError;
+      throw AuthenticationError;
     },
   },
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      const token = signToken(user);
-      return { token, user };
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        throw new Error("email already exist");
+      } else {
+        const user = await User.create({ username, email, password });
+        const token = signToken(user);
+        return { token, user };
+      }
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -69,24 +76,26 @@ const resolvers = {
         if (!context.user) {
           throw AuthenticationError;
         }
-      if (context.user) {
-        const recipe = await Recipe.create({
-          recipeName,
-          instructions,
-          ingredients,
-          category,
-        });
+        if (context.user) {
+          const recipe = await Recipe.create({
+            recipeName,
+            instructions,
+            ingredients,
+            category,
+          });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { createdRecipes: recipe._id } }
-        );
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $addToSet: { createdRecipes: recipe._id } }
+          );
 
-        return recipe;
-      }
+          return recipe;
+        }
       } catch (error) {
-        console.log('Error adding recipe:', error);
-        throw new Error('An error occurred while adding the recipe. Please try again.');
+        console.log("Error adding recipe:", error);
+        throw new Error(
+          "An error occurred while adding the recipe. Please try again."
+        );
       }
     },
     editRecipe: async (
@@ -96,25 +105,27 @@ const resolvers = {
     ) => {
       try {
         if (!context.user) {
-          throw  AuthenticationError;
+          throw AuthenticationError;
         }
-    
+
         const recipe = await Recipe.findById(recipeId);
-      
+
         if (!recipe) {
-          throw new Error('Recipe not found.');
+          throw new Error("Recipe not found.");
         }
-    
+
         recipe.recipeName = recipeName || recipe.recipeName;
         recipe.instructions = instructions || recipe.instructions;
         recipe.ingredients = ingredients || recipe.ingredients;
         recipe.category = category || recipe.category;
-      
+
         const updatedRecipe = await recipe.save();
         return updatedRecipe;
       } catch (error) {
-        console.error('Error editing recipe:', error);
-        throw new Error('An error occurred while editing the recipe. Please try again.');
+        console.error("Error editing recipe:", error);
+        throw new Error(
+          "An error occurred while editing the recipe. Please try again."
+        );
       }
     },
 
@@ -130,25 +141,30 @@ const resolvers = {
         return recipe;
       }
     },
-    saveExternalRecipe: async (parent, { recipeName, details, image, externalId }, context) => {
-      if (!context.user) { // user needs to be authenticated in order to save recipe from API
-        throw new AuthenticationError;
+    saveExternalRecipe: async (
+      parent,
+      { recipeName, instructions, image, externalId },
+      context
+    ) => {
+      if (!context.user) {
+        // user needs to be authenticated in order to save recipe from API
+        throw AuthenticationError;
       }
-      
+
       const savedRecipe = await Recipe.create({
         recipeName,
-        details,
+        instructions,
         image,
-        externalId
+        externalId,
         // I did not include 'category' here because it's from the external API.
       });
-      await User.findByIdAndUpdate(context.user._id, { $addToSet: { savedRecipes: savedRecipe._id } });
+      await User.findByIdAndUpdate(context.user._id, {
+        $addToSet: { savedRecipes: savedRecipe._id },
+      });
 
-      return savedRecipe;// update the user's list of saved recipes
+      return savedRecipe; // update the user's list of saved recipes
     },
   },
-  
-
 };
 
 module.exports = resolvers;

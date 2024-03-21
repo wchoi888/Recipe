@@ -1,11 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const recipeSchema = new Schema({
-  recipeName:
-    {
-      type: String,
-      required: true,
-    },
+  recipeName: {
+    type: String,
+    required: true,
+  },
   recipeDesc: {
     type: String,
   },
@@ -16,7 +15,7 @@ const recipeSchema = new Schema({
 
   ingredients: {
     type: String,
-    required: true,
+    required: false,
   },
 
   image: {
@@ -26,11 +25,11 @@ const recipeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Category",
   },
-  externalId: { //create separate ID for recipes from External API
+  externalId: {
+    //create separate ID for recipes from External API
     type: String,
-    required: false, 
+    required: false,
   },
-
 });
 const Recipe = model("Recipe", recipeSchema);
 module.exports = Recipe;

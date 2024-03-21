@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
@@ -27,8 +27,18 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_RECIPE = gql`
-  mutation addRecipe($title: String!, $instructions: String!, $ingredients: String!, $category: ID!) {
-    addRecipe(recipeName: $title, instructions: $instructions, ingredients: $ingredients, category: $category) {
+  mutation addRecipe(
+    $title: String!
+    $instructions: String!
+    $ingredients: String!
+    $category: ID!
+  ) {
+    addRecipe(
+      recipeName: $title
+      instructions: $instructions
+      ingredients: $ingredients
+      category: $category
+    ) {
       _id
       recipeName
       instructions
@@ -39,8 +49,20 @@ export const ADD_RECIPE = gql`
 `;
 
 export const EDIT_RECIPE = gql`
-  mutation editRecipe($recipeId: ID!, $title: String, $instructions: String, $ingredients: String, $category: ID) {
-    editRecipe(recipeId: $recipeId, recipeName: $title, instructions: $instructions, ingredients: $ingredients, category: $category) {
+  mutation editRecipe(
+    $recipeId: ID!
+    $title: String
+    $instructions: String
+    $ingredients: String
+    $category: ID
+  ) {
+    editRecipe(
+      recipeId: $recipeId
+      recipeName: $title
+      instructions: $instructions
+      ingredients: $ingredients
+      category: $category
+    ) {
       _id
       recipeName
       instructions
@@ -58,11 +80,21 @@ export const DELETE_RECIPE = gql`
   }
 `;
 export const SAVE_EXTERNAL_RECIPE = gql`
-  mutation saveExternalRecipe($recipeName: String!, $details: String!, $image: String, $externalId: String) {
-    saveExternalRecipe(recipeName: $recipeName, details: $details, image: $image, externalId: $externalId) {
+  mutation saveExternalRecipe(
+    $recipeName: String!
+    $details: String!
+    $image: String
+    $externalId: String
+  ) {
+    saveExternalRecipe(
+      recipeName: $recipeName
+      instructions: $details
+      image: $image
+      externalId: $externalId
+    ) {
       _id
       recipeName
-      details
+      instructions
       image
       externalId
     }

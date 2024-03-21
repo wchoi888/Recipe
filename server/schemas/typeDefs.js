@@ -15,6 +15,7 @@ const typeDefs = `
     ingredients: String
     category: ID
     image: String
+    externalId:  String
   }
   type Category {
     _id: ID
@@ -44,7 +45,7 @@ const typeDefs = `
     addRecipe(recipeName: String!, instructions: String!, ingredients: String!, category: ID!): Recipe
     editRecipe(recipeId: ID!, recipeName: String, instructions: String, ingredients: String, category: ID): Recipe
     deleteRecipe(recipeId: ID!): Recipe
-    saveExternalRecipe(recipeName: String!, details: String!, image: String, externalId: String): Recipe
+    saveExternalRecipe(recipeName: String!, instructions: String!, image: String, externalId: String): Recipe
   }
 `;
 
