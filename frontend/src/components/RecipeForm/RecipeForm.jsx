@@ -38,6 +38,10 @@ const RecipeForm = ({  selectedRecipe, clearSelection }) => {
     };
 
     const handleAddOrUpdateRecipe = () => {
+        if (!inputFields.title || !inputFields.ingredients || !inputFields.instructions) {//checking if all input fields are filled out, which is required...
+            alert("Please fill out all required fields.");
+            return; //This stops the function from proceeding until all fields are filled out
+        }
         if (selectedRecipe) {
             editRecipe({
                 variables:{

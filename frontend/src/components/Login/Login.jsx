@@ -18,6 +18,7 @@ useEffect(()=>{
 
     const handleLogin = async (e) => {
       e.preventDefault();
+
       try {
         const { data } = await login({variables: {email: email, password: password}}); 
  

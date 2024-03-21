@@ -26,6 +26,11 @@ const recipeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Category",
   },
+  externalId: { //create separate ID for recipes from External API
+    type: String,
+    required: false, 
+  },
+
 });
 const Recipe = model("Recipe", recipeSchema);
 module.exports = Recipe;

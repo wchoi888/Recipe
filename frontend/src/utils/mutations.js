@@ -1,4 +1,3 @@
-//this is just a placeholder until wing has tested his resolvers and ppastes the operations here
 import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`
@@ -55,6 +54,17 @@ export const DELETE_RECIPE = gql`
   mutation deleteRecipe($recipeId: ID!) {
     deleteRecipe(recipeId: $recipeId) {
       _id
+    }
+  }
+`;
+export const SAVE_EXTERNAL_RECIPE = gql`
+  mutation saveExternalRecipe($recipeName: String!, $details: String!, $image: String, $externalId: String) {
+    saveExternalRecipe(recipeName: $recipeName, details: $details, image: $image, externalId: $externalId) {
+      _id
+      recipeName
+      details
+      image
+      externalId
     }
   }
 `;

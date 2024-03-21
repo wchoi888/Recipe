@@ -44,7 +44,7 @@ const typeDefs = `
     addRecipe(recipeName: String!, instructions: String!, ingredients: String!, category: ID!): Recipe
     editRecipe(recipeId: ID!, recipeName: String, instructions: String, ingredients: String, category: ID): Recipe
     deleteRecipe(recipeId: ID!): Recipe
- 
+    saveExternalRecipe(recipeName: String!, details: String!, image: String, externalId: String): Recipe
   }
 `;
 
