@@ -5,10 +5,12 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "develop": "concurrently \"cd server && npm run watch\" \"cd frontend && npm run dev\"",
     "install": "cd server && npm i && cd ../frontend && npm i",
     "build": "cd frontend && npm run build",
     "render-build": "npm install && npm run build"
+    
   },
   "keywords": [],
   "author": "",
@@ -23,3 +25,5 @@
     "vite": "^5.1.4"
   }
 }
+
+
