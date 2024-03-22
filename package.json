@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server/server.js",
     "heroku-postbuild": "cd frontend && npm install && npm run build",
-    "develop": "concurrently \"cd server && npm run watch\" \"cd frontend && npm run dev\"",
-    "install": "cd server && npm i && cd ../frontend && npm i",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
+    "install": "cd server && npm i && cd ../client && npm i",
     "render-build": "npm install && npm run build"
   },
   "keywords": [],
