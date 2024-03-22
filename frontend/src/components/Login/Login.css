@@ -36,7 +36,7 @@ body {
 
 .Input {
   display: block;
-  width: calc(100% - 20px); /* Adjusted width for better alignment */
+  width: calc(100% - 40px); /* Adjusted width for better alignment */
   padding: 15px; /* Increased padding for inputs */
   margin: 10px auto; /* Center inputs horizontally */
   border-radius: 5px;
@@ -45,25 +45,14 @@ body {
 }
 
 /* Button styles */
-.LoginButton {
-  width: 200px; /* Adjusted width for better alignment */
-  padding: 10px; /* Decreased padding for smaller size */
+.LoginButton, .SignUpButton {
+  width: inherit; /* Adjusted width for better alignment */
+  padding: 15px; /* Adjusted padding for buttons */
   margin-top: 20px;
   border: none;
   border-radius: 5px;
   color: white;
   cursor: pointer;
-}
-
-.SignUpButton {
-  width: 200px; /* Adjusted width for better alignment */
-  padding: 10px; /* Decreased padding for smaller size */
-  margin-top: 20px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-
 }
 
 .LoginButton {
@@ -75,7 +64,6 @@ body {
 }
 
 .SignUpButton {
-  margin-top: 10px;
   background-color: var(--secondary-color);
 }
 
