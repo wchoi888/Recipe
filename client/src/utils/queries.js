@@ -14,6 +14,13 @@ export const QUERY_USER = gql`
       instructions
       category
       }
+      savedRecipes{
+        _id
+      recipeName
+      ingredients
+      instructions
+      category
+      }
     }
   }
 `;

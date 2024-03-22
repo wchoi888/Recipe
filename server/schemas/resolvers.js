@@ -8,7 +8,7 @@ const resolvers = {
       return User.find().populate("createdRecipes");
     },
     user: async (parent, { _id }) => {
-      return User.findOne({ _id }).populate("createdRecipes");
+      return User.findOne({ _id }).populate("createdRecipes").populate("savedRecipes");
     },
     recipes: async () => {
       return Recipe.find().sort({ createdAt: -1 });
@@ -157,13 +157,13 @@ const resolvers = {
         instructions,
         image,
         externalId,
-        // I did not include 'category' here because it's from the external API.
+        // i didn't include category here bc it's from the external API.
       });
       await User.findByIdAndUpdate(context.user._id, {
         $addToSet: { savedRecipes: savedRecipe._id },
       });
 
-      return savedRecipe; // update the user's list of saved recipes
+      return savedRecipe; // update list of saved recipes
     },
   },
 };
