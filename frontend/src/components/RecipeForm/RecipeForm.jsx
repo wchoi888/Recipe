@@ -1,95 +1,87 @@
-//this is where users fill out the input form for the recipe they want to create
-//they can create a title for their recipe and include the ingredients and instructions
-//once they click "add recipe" the recipe will be included in the "my recipes" list
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_CATEGORIES } from '../../utils/queries';
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ADD_RECIPE, EDIT_RECIPE, DELETE_RECIPE } from '../../utils/mutations';
 
-const RecipeForm = ({  selectedRecipe, clearSelection }) => {
+const RecipeForm = ({ selectedRecipe, clearSelection }) => {
     const [inputFields, setInputFields] = useState({
         title: '',
         ingredients: '',
-        category: '',
         instructions: ''
     });
-    const [addRecipe] = useMutation(ADD_RECIPE)
-    const [editRecipe] = useMutation(EDIT_RECIPE)
-    const [deleteRecipe] = useMutation(DELETE_RECIPE)
 
+    const [addRecipe] = useMutation(ADD_RECIPE);
+    const [editRecipe] = useMutation(EDIT_RECIPE);
+    const [deleteRecipe] = useMutation(DELETE_RECIPE);
 
     useEffect(() => {
         if (selectedRecipe) {
             setInputFields({
                 title: selectedRecipe.recipeName,
                 ingredients: selectedRecipe.ingredients,
-                category: selectedRecipe.category,
                 instructions: selectedRecipe.instructions
             });
         } else {
-           
-            setInputFields({ title: '', ingredients: '', category:'',instructions: '' });
+            setInputFields({ title: '', ingredients: '', instructions: '' });
         }
     }, [selectedRecipe]);
-    const { loading, data } = useQuery(GET_CATEGORIES);
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setInputFields(prev => ({ ...prev, [name]: value }));
     };
 
     const handleAddOrUpdateRecipe = () => {
-        if (!inputFields.title || !inputFields.ingredients || !inputFields.instructions) {//checking if all input fields are filled out, which is required...
+        // Check if all required fields are filled out
+        if (!inputFields.title || !inputFields.ingredients || !inputFields.instructions) {
             alert("Please fill out all required fields.");
-            return; //This stops the function from proceeding until all fields are filled out
+            return;
         }
+
         if (selectedRecipe) {
             editRecipe({
-                variables:{
+                variables: {
                     recipeId: selectedRecipe._id,
                     title: inputFields.title,
                     ingredients: inputFields.ingredients,
-                    category: inputFields.category,
                     instructions: inputFields.instructions
                 }
-         });
+            });
         } else {
             addRecipe({
-               variables:{
-                title: inputFields.title,
-                ingredients: inputFields.ingredients,
-                category: inputFields.category,
-                instructions: inputFields.instructions
-               }
-        }); 
-         window.location.reload();
+                variables: {
+                    title: inputFields.title,
+                    ingredients: inputFields.ingredients,
+                    instructions: inputFields.instructions
+                }
+            });
         }
+
         clearForm();
-      
     };
 
     const handleDeleteRecipe = () => {
         if (selectedRecipe) {
-            deleteRecipe({variables: {recipeId: selectedRecipe._id}});
+            deleteRecipe({ variables: { recipeId: selectedRecipe._id } });
             clearForm();
-            window.location.reload();
         } else {
             alert("Please select a recipe to delete.");
         }
     };
 
     const clearForm = () => {
-        setInputFields({ title: '', ingredients: '', category: '', instructions: '' });
-        clearSelection(); 
+        setInputFields({ title: '', ingredients: '', instructions: '' });
+        clearSelection();
     };
 
     return (
         <div className="recipe-form">
             <form>
                 <input
-                placeholder="Recipe Name"
+                    placeholder="Recipe Name"
                     type="text"
                     id="title"
-                    name="title" 
+                    name="title"
                     value={inputFields.title}
                     onChange={handleInputChange}
                 />
@@ -101,14 +93,6 @@ const RecipeForm = ({  selectedRecipe, clearSelection }) => {
                     value={inputFields.ingredients}
                     onChange={handleInputChange}
                 />
-                <select id="category" name="category" value={inputFields.category} onChange={handleInputChange}>
-                <option value="">Select Category</option>
-                {(loading)?(<option>Loading...</option>):(data.categories.map(category => (
-                    <option key={category._id} value={category._id}>
-                        {category.categoryName}
-                    </option>
-                )))}
-                </select>
                 <textarea
                     placeholder="Instruction"
                     id="instructions"
