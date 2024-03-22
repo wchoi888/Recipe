@@ -7,6 +7,11 @@
   --background-color: #FFFFFF;        /* White */
 }
 
+/* Apply background to the entire body */
+body {
+  background: var(--background-color);
+}
+
 /* Base styles for LoginWrapper and LoginContainer */
 .LoginWrapper {
   display: flex;
@@ -16,8 +21,8 @@
 }
 
 .LoginContainer {
-  padding: 20px;
-  background: white;
+  padding: 50px; /* Increased padding for a bigger form */
+  background: white; /* Use white background for the form container */
   border-radius: 10px;
   width: 100%; /* Use percentage for width to make it responsive */
   max-width: 600px; /* Set maximum width for larger screens */
@@ -31,9 +36,9 @@
 
 .Input {
   display: block;
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
+  width: calc(100% - 40px); /* Adjusted width for better alignment */
+  padding: 15px; /* Increased padding for inputs */
+  margin: 10px auto; /* Center inputs horizontally */
   border-radius: 5px;
   border: 1px solid #ccc;
   box-sizing: border-box;
@@ -41,8 +46,8 @@
 
 /* Button styles */
 .LoginButton, .SignUpButton {
-  width: 100%;
-  padding: 10px;
+  width: inherit; /* Adjusted width for better alignment */
+  padding: 15px; /* Adjusted padding for buttons */
   margin-top: 20px;
   border: none;
   border-radius: 5px;
@@ -59,14 +64,12 @@
 }
 
 .SignUpButton {
-  margin-top: 10px;
   background-color: var(--secondary-color);
 }
 
 .SignUpButton:hover {
   background-color: var(--secondary-hover-color);
 }
-
 
 /* Media query for mobile devices (phones) */
 @media (max-width: 576px) {

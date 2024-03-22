@@ -16,6 +16,23 @@
   
 }
 
+
+#logo-container {
+  width: fit-content; /* Set width to fit the content (the size of the logo) */
+  height: auto; /* Maintain aspect ratio */
+  position: absolute; /* Position the logo absolute within its container */
+  top: 20px; /* Adjust the distance from the top of the page */
+  left: 50%; /* Move the logo to the middle horizontally */
+  transform: translateX(-50%); /* Center the logo horizontally */
+  z-index: 999; /* Ensure the logo appears above other content */
+}
+
+/* Adjust the size of the logo */
+#logo {
+  width: 175px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
 a {
   font-weight: 500;
   color: var(--secondary-hover-color); /* Changed to match the secondary hover color */
@@ -39,20 +56,6 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
-/* CSS to style the logo */
-#logo {
-  width: 120px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
-  position: absolute; /* Position the logo fixed on the page */
-  top: 20px; /* Adjust the distance from the top of the page */
-  left: 50%; /* Move the logo to the middle horizontally */
-  transform: translateX(-50%); /* Center the logo horizontally */
-  z-index: 999; /* Ensure the logo appears above other content */
-}
-
-
-
 
 button {
   border-radius: 8px;
