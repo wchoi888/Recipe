@@ -15,6 +15,8 @@ const Dashboard = () => {
         variables: { userId: user ? user.data._id : null }
     });
 
+    
+
     const [recipes, setRecipes] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [searchQuery, setSearchQuery] = useState(''); // State for storing the search query
@@ -24,7 +26,11 @@ const Dashboard = () => {
        if(!Auth.loggedIn()){
         navigate('/login')
        }        if (!loading && !error && data) {
-            setRecipes(data.user.createdRecipes || []);
+        console.log("SAVED RECIPES:",data.user.savedRecipes);
+        console.log("CREATE RECIPES:",data.user.createdRecipes);
+            let temp=data.user.savedRecipes;
+            temp=temp.concat(data.user.createdRecipes);
+            setRecipes(temp || []);
         }
 
     }, [navigate,loading, error, data]);
