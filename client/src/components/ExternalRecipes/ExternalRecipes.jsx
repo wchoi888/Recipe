@@ -1,18 +1,30 @@
 //this is where users will be able to see the results from the external API. they will need to navigate to '/recipes'
 //need to add a search button that 'onclik' navigates to results page..?
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate  } from "react-router-dom";
 import { SAVE_EXTERNAL_RECIPE } from "../../utils/mutations";
+import Auth from '../../utils/auth'; 
+import { QUERY_USER } from '../../utils/queries'; 
 import { useMutation } from "@apollo/client";
 // Need to add mutation that let's users save recipes from the external API
+const user = Auth.getUser(); 
 
-const ExternalRecipes = () => {
+const ExternalRecipes = ({ isSearchPage, addNewRecipe }) => {
   //define component to handle search queries
   const [recipes, setRecipes] = useState([]); //create state to store recipes...
   const [mealDetails, setMealDetails] = useState({}); //storing meal details as an object
   const location = useLocation();
-
+  const navigate = useNavigate(); 
   const [saveExternalRecipe] = useMutation(SAVE_EXTERNAL_RECIPE);
+
+  const navigateToDashboard = () => {
+    if (isSearchPage) {
+      addNewRecipe();  // this is gonna refetch the data of the saved recipe
+    }
+    navigate('/dashboard');
+  };
+
+  
 
   const fetchRecipes = (query) => {
     //functin to fetch recipes
@@ -54,6 +66,7 @@ const ExternalRecipes = () => {
           details,
           image,
         },
+        refetchQueries: [{ query: QUERY_USER, variables: { userId: user.data._id } }], 
       });
 
       console.log("Recipe saved");
@@ -72,7 +85,13 @@ const ExternalRecipes = () => {
   }, [location.search]);
 
   return (
+    
     <div>
+      {isSearchPage && (
+       <button className="DashboardButton" onClick={navigateToDashboard}>
+          Go back to main page
+        </button>
+        )}
       {recipes &&
         recipes.map((recipe, index) => (
           <div key={index}>
