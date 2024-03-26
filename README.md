@@ -74,7 +74,7 @@ Recipes For Me is a full-stack single-page application built using the MERN (Mon
 - Measures to ensure data security and prevent unauthorized access.
 - User authentication, data validation, and protection of sensitive information.
 
-  Link:
+  Link: https://project3-recipe-add-7bf0e8779275.herokuapp.com 
 
   Photo of application:
 
