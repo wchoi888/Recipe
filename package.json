@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && vite preview\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "render-build": "npm install && npm run build"
   },
@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.2"
   },
   "dependencies": {
     "cors": "^2.8.5",
